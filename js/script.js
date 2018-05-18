@@ -115,8 +115,8 @@ function onDragStart(event) {
 
 	// store the initial delta form the user touch and the center of mister pigeon
 	var touchPosition = this.data.getLocalPosition(this.parent);
-	this.grabDeltaX = this.position.x - touchPosition;
-	this.grabDeltaY = this.position.y - touchPosition;
+	this.grabDeltaX = this.position.x - touchPosition.x;
+	this.grabDeltaY = this.position.y - touchPosition.y;
 }
 
 function onDragEnd() {
