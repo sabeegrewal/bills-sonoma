@@ -127,7 +127,7 @@ function gameLoop() {
 	requestAnimationFrame(gameLoop);
 
 	// game logic
-	play();
+	updatePlayer();
 
 	// render the stage to see the animation
 	renderer.render(stage);
