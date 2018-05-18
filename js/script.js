@@ -31,8 +31,8 @@ function createPlayer() {
 	);
 	player.speed = 5;
 	player.angularV = 0.1;
-	player.width = $(document).width() * 0.08;
-	player.height = $(document).height() * 0.3;
+	player.width = $(document).width() * 0.125;
+	player.height = $(document).height() * 0.4;
 	
 	// center pigeon boi 
 	player.anchor.x = 0.5;
