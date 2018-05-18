@@ -1,1 +1,10 @@
-exclude: ["README.md", "CNAME", "LICENSE"]
+# Where things are
+source:          .
+destination:     ./_site
+collections_dir: .
+plugins_dir:     _plugins
+layouts_dir:     _layouts
+data_dir:        _data
+includes_dir:    _includes
+
+exclude:             ["README.md", "CNAME", "LICENSE", "Gemfile", "Gemfile.lock", "node_modules", "vendor/bundle/", "vendor/cache/", "vendor/gems/", "vendor/ruby/"]
