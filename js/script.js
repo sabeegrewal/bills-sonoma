@@ -110,12 +110,12 @@ function updatePlayer() {
 
 function onDragStart(event) {
 	this.data = event.data;
-	this.alpha = 1;
+	this.alpha = 0.5;
 	this.dragging = true;
 }
 
 function onDragEnd() {
-	this.alpha = 0.5;
+	this.alpha = 1;
 	this.dragging = false;
 	this.data = null;
 }
