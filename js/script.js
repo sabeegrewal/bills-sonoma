@@ -40,6 +40,21 @@ function createPlayer() {
 	player.x = renderer.width / 2;
 	player.y = renderer.height / 2;
 
+	player.interactive = true;
+
+	player
+		// events for drag start
+		.on('mousedown', onDragStart)
+		.on('touchstart', onDragStart)
+		// events for drag end
+		.on('mouseup', onDragEnd)
+		.on('mouseupoutside', onDragEnd)
+		.on('touchend', onDragEnd)
+		.on('touchendoutside', onDragEnd)
+		// events for drag move
+		.on('mousemove', onDragMove)
+		.on('touchmove', onDragMove);
+
 	player.moveRight = function() { 
 		player.x += player.speed; 
 	}
@@ -90,6 +105,26 @@ function updatePlayer() {
 	}
 	if (keyPressed[37]) {		// left arrow press
 		player.rotateCC();
+	}
+}
+
+function onDragStart(event) {
+	this.data = event.data;
+	this.alpha = 1;
+	this.dragging = true;
+}
+
+function onDragEnd() {
+	this.alpha = 0.5;
+	this.dragging = false;
+	this.data = null;
+}
+
+function onDragMove() {
+	if (this.dragging) {
+		var newPosition = this.data.getLocalPosition(this.parent);
+		this.position.x = newPosition.x;
+		this.position.y = newPosition.y;
 	}
 }
 
