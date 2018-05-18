@@ -16,7 +16,6 @@ renderer.resize(window.innerWidth, window.innerHeight);
 
 // create the stage
 var stage = new Container();
-
 /* -------------- END sets up stage and game rendering -------------- */
 
 
@@ -32,11 +31,8 @@ var keyPressed = [];
 /* -------------- BEGIN game functions -------------- */
 function setup() {
 	document.body.appendChild(renderer.view);
-
 	createPlayer();
-
 	renderer.render(stage);
-
 	gameLoop();
 }
 
@@ -95,27 +91,22 @@ function updatePlayer() {
 	if (keyPressed[87]) {
 		player.moveUp();
 	}
-
 	// a
 	if (keyPressed[65]) {
 		player.moveLeft();
 	}
-
 	// s
 	if (keyPressed[83]) {
 		player.moveDown();
 	}
-
 	// d
 	if (keyPressed[68]) {
 		player.moveRight();
 	}
-
 	// right arrow
 	if (keyPressed[39]) {
 		player.rotateCW();
 	}
-
 	// left arrow
 	if (keyPressed[37]) {
 		player.rotateCC();
@@ -135,12 +126,12 @@ function gameLoop() {
 /* -------------- END game functions -------------- */
 
 
+/* -------------- BEGIN initialization -------------- */
 // load images and starts the game
 loader
 	.add(["img/pigeon.png"])
 	.on("progress", loadProgressHandler)
 	.load(setup);
-
 
 // progress handler
 function loadProgressHandler(loader, resource) {
@@ -160,3 +151,4 @@ window.onkeyup = function(e) {
 window.onkeydown = function(e) {
 	keyPressed[e.keyCode] = true;
 }
+/* -------------- END initialization -------------- */
