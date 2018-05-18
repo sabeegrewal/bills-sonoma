@@ -1,1 +1,1 @@
-exclude: ['README.md', 'CNAME', 'LICENSE']
+exclude: ["README.md", "CNAME", "LICENSE"]
