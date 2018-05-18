@@ -1,5 +1,5 @@
-/* -------------- BEGIN sets up stage and game rendering -------------- */
-// aliases
+// Set up stage and game rendering 
+
 var Container = PIXI.Container,
 	autoDetectRenderer = PIXI.autoDetectRenderer,
 	loader = PIXI.loader,
@@ -7,28 +7,23 @@ var Container = PIXI.Container,
 	Sprite = PIXI.Sprite,
 	Text = PIXI.Text;
 
-// create the renderer
 var renderer = autoDetectRenderer(800, 600, {backgroundColor : 0x1099bb});
 renderer.view.style.position = "absolute";
 renderer.view.style.display = "block";
 renderer.autoResize = true;
 renderer.resize(window.innerWidth, window.innerHeight);
 
-// create the stage
 var stage = new Container();
-/* -------------- END sets up stage and game rendering -------------- */
 
+// Create game variables
 
-/* -------------- BEGIN game variables -------------- */
-// the player
 var player;
 
 // keep track of key presses
 var keyPressed = [];
-/* -------------- END game variables -------------- */
 
+// Game functions
 
-/* -------------- BEGIN game functions -------------- */
 function setup() {
 	document.body.appendChild(renderer.view);
 	createPlayer();
@@ -37,118 +32,95 @@ function setup() {
 }
 
 function createPlayer() {
-	// creates player sprite
 	player = new Sprite(
 		loader.resources["img/pigeon.png"].texture
 	);
-
-	// preset movement values
 	player.speed = 5;
 	player.angularV = 0.1;
+	player.width = 300;
+	player.height = 400;
+	
+	// center pigeon boi 
+	player.anchor.x = 0.5;
+	player.anchor.y = 0.5;
+	player.x = renderer.width / 2;
+	player.y = renderer.height / 2;
 
-	// movement functions
-	player.moveRight = function() {
-		player.x += player.speed;
+	player.moveRight = function() { 
+		player.x += player.speed; 
 	}
+	
 	player.moveLeft = function() {
 		player.x -= player.speed;
 	}
+	
 	player.moveUp = function() {
 		player.y -= player.speed;
 	}
+	
 	player.moveDown = function() {
 		player.y += player.speed;
 	}
+	
 	player.rotateCW = function() {
 		player.rotation += player.angularV;
 		if (player.rotation > 6.28) {
 			player.rotation -= 6.28;
 		}
 	}
+	
 	player.rotateCC = function() {
 		player.rotation -= player.angularV;
 		if (player.rotation < 0) {
 			player.rotation += 6.28;
 		}
 	}
-
-	// changes player size
-	player.width = 300;
-	player.height = 400;
-	// makes player center in the middle of the picture
-	player.anchor.x = 0.5;
-	player.anchor.y = 0.5;
-	// sets player's starting position
-	player.x = renderer.width / 2;
-	player.y = renderer.height / 2;
-
-	// adds player to the stage
 	stage.addChild(player);
 }
 
 function updatePlayer() {
-	// w
-	if (keyPressed[87]) {
+	if (keyPressed["w".charCodeAt(0)] || keyPressed["W".charCodeAt(0)]) {
 		player.moveUp();
 	}
-	// a
-	if (keyPressed[65]) {
+	if (keyPressed["a".charCodeAt(0)] || keyPressed["A".charCodeAt(0)]) {
 		player.moveLeft();
 	}
-	// s
-	if (keyPressed[83]) {
+	if (keyPressed["s".charCodeAt(0)] || keyPressed["S".charCodeAt(0)]) {
 		player.moveDown();
 	}
-	// d
-	if (keyPressed[68]) {
+	if (keyPressed["d".charCodeAt(0)] || keyPressed["D".charCodeAt(0)]) {
 		player.moveRight();
 	}
-	// right arrow
-	if (keyPressed[39]) {
+	if (keyPressed[39]) {		// right arrow press
 		player.rotateCW();
 	}
-	// left arrow
-	if (keyPressed[37]) {
+	if (keyPressed[37]) {		// left arrow press
 		player.rotateCC();
 	}
 }
 
 function gameLoop() {
-	// loop this function at 60 frames per second
-	requestAnimationFrame(gameLoop);
-
-	// game logic
+	requestAnimationFrame(gameLoop); // looped at 60 FPS
 	updatePlayer();
-
-	// render the stage to see the animation
 	renderer.render(stage);
 }
-/* -------------- END game functions -------------- */
 
+// Init
 
-/* -------------- BEGIN initialization -------------- */
 // load images and starts the game
 loader
 	.add(["img/pigeon.png"])
 	.on("progress", loadProgressHandler)
 	.load(setup);
-
-// progress handler
 function loadProgressHandler(loader, resource) {
-	// display file url being loaded
 	console.log("loading: " + resource.url);
-
-	// display percentage of files loaded
 	console.log("progress: " + loader.progress + "%");
 }
 
-// key up
+// Populates keyPressed array
 window.onkeyup = function(e) {
 	keyPressed[e.keyCode] = false;
 }
-
-// key down
 window.onkeydown = function(e) {
 	keyPressed[e.keyCode] = true;
 }
-/* -------------- END initialization -------------- */
