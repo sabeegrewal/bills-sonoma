@@ -1,5 +1,4 @@
-// Set up stage and game rendering 
-
+/* Set up stage and game rendering */
 var Container = PIXI.Container,
 	autoDetectRenderer = PIXI.autoDetectRenderer,
 	loader = PIXI.loader,
@@ -7,23 +6,18 @@ var Container = PIXI.Container,
 	Sprite = PIXI.Sprite,
 	Text = PIXI.Text;
 
-var renderer = PIXI.autoDetectRenderer(256, 256, {antialias: false, transparent: true, resolution: 1});
+var renderer = autoDetectRenderer(256, 256, {antialias: false, transparent: true, resolution: 1});
 renderer.view.style.position = "absolute";
 renderer.view.style.display = "block";
 renderer.autoResize = true;
 renderer.resize(window.innerWidth, window.innerHeight);
-
 var stage = new Container();
 
-// Create game variables
-
+/* Create game variables */
 var player;
+var keyPressed = []; // keep track of key presses
 
-// keep track of key presses
-var keyPressed = [];
-
-// Game functions
-
+/* Game functions */
 function setup() {
 	document.body.appendChild(renderer.view);
 	createPlayer();
@@ -105,8 +99,7 @@ function gameLoop() {
 	renderer.render(stage);
 }
 
-// Init
-
+/* Init */
 // load images and starts the game
 loader
 	.add(["img/pigeon.png"])
