@@ -7,7 +7,7 @@ var Container = PIXI.Container,
 	Sprite = PIXI.Sprite,
 	Text = PIXI.Text;
 
-var renderer = autoDetectRenderer(800, 600, {backgroundColor : 0x1099bb});
+var renderer = PIXI.autoDetectRenderer(256, 256, {antialias: false, transparent: true, resolution: 1});
 renderer.view.style.position = "absolute";
 renderer.view.style.display = "block";
 renderer.autoResize = true;
