@@ -31,9 +31,6 @@ function createPlayer() {
 	);
 	player.speed = 5;
 	player.angularV = 0.1;
-	player.height = $(document).height() * 0.5;
-	player.width = player.height * 0.75;
-	
 	// center pigeon boi 
 	player.anchor.x = 0.5;
 	player.anchor.y = 0.5;
@@ -84,6 +81,12 @@ function createPlayer() {
 			player.rotation += 6.28;
 		}
 	}
+	
+	player.resize = function() {
+		player.height = $(document).height() * 0.5;
+		player.width = player.height * 0.75;
+	}
+	player.resize();
 	stage.addChild(player);
 }
 
@@ -158,6 +161,6 @@ window.onkeydown = function(e) {
 	keyPressed[e.keyCode] = true;
 }
 window.onresize = function(e) {
-    renderer.view.style.width = window.innerWidth + 'px';
-    renderer.view.style.height = window.innerHeight + 'px';
+	renderer.resize(window.innerWidth, window.innerHeight);
+	player.resize();
 }
