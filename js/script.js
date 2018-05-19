@@ -157,7 +157,7 @@ window.onkeyup = function(e) {
 window.onkeydown = function(e) {
 	keyPressed[e.keyCode] = true;
 }
-window.resize = function(e) {
+window.onresize = function(e) {
     renderer.view.style.width = window.innerWidth + 'px';
     renderer.view.style.height = window.innerHeight + 'px';
 }
