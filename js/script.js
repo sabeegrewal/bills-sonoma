@@ -14,6 +14,9 @@ function getWindowHeight() {
 	return $(window).height();
 }
 
+var lastWindowWidth;
+var lastWindowHeight;
+
 var renderer = autoDetectRenderer(256, 256, {antialias: false, transparent: true, resolution: 1});
 renderer.view.style.position = "absolute";
 renderer.view.style.display = "block";
@@ -169,6 +172,19 @@ window.onkeydown = function(e) {
 	keyPressed[e.keyCode] = true;
 }
 window.onresize = function(e) {
-	renderer.resize(getWindowWidth(), getWindowHeight());
+	// store scaled coordinates for mister pigeon
+	var scaledX = player.position.x / lastWindowWidth;
+	var scaledY = player.position.y / lastWindowHeight;
+
+	lastWindowWidth = getWindowWidth();
+	lastWindowHeight = getWindowHeight();
+
+	renderer.resize(lastWindowWidth, lastWindowHeight);
 	player.resize();
+
+	var newX = scaledX * lastWindowWidth;
+	var newY = scaledY * lastWindowHeight;
+
+	player.position.x = newX;
+	player.position.y = newY;
 }
