@@ -14,8 +14,8 @@ function getWindowHeight() {
 	return $(window).height();
 }
 
-var lastWindowWidth;
-var lastWindowHeight;
+var lastWindowWidth = getWindowWidth();
+var lastWindowHeight = getWindowHeight();
 
 var renderer = autoDetectRenderer(256, 256, {antialias: false, transparent: true, resolution: 1});
 renderer.view.style.position = "absolute";
