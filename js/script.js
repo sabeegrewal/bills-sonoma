@@ -7,11 +7,11 @@ var Container = PIXI.Container,
 	Text = PIXI.Text;
 
 function getWindowWidth() {
-	return window.innerWidth;
+	return $(window).width();
 }
 
 function getWindowHeight() {
-	return window.innerHeight;
+	return $(window).height();
 }
 
 var renderer = autoDetectRenderer(256, 256, {antialias: false, transparent: true, resolution: 1});
