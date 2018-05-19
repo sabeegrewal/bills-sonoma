@@ -161,6 +161,6 @@ window.onkeydown = function(e) {
 	keyPressed[e.keyCode] = true;
 }
 window.onresize = function(e) {
-	renderer.resize(window.innerWidth, window.innerHeight);
+	renderer.resize($(document).width(), $(document).height());
 	player.resize();
 }
