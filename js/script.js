@@ -6,11 +6,19 @@ var Container = PIXI.Container,
 	Sprite = PIXI.Sprite,
 	Text = PIXI.Text;
 
+function getWindowWidth() {
+	return $(document).width()
+}
+
+function getWindowHeight() {
+	return $(document).height();
+}
+
 var renderer = autoDetectRenderer(256, 256, {antialias: false, transparent: true, resolution: 1});
 renderer.view.style.position = "absolute";
 renderer.view.style.display = "block";
 renderer.autoResize = true;
-renderer.resize(window.innerWidth, window.innerHeight);
+renderer.resize(getWindowWidth(), getWindowHeight());
 var stage = new Container();
 
 /* Create game variables */
@@ -34,8 +42,8 @@ function createPlayer() {
 	// center pigeon boi 
 	player.anchor.x = 0.5;
 	player.anchor.y = 0.5;
-	player.x = renderer.width / 2;
-	player.y = renderer.height / 2;
+	player.x = getWindowWidth() / 2;
+	player.y = getWindowHeight() / 2;
 
 	player.interactive = true;
 
@@ -83,7 +91,7 @@ function createPlayer() {
 	}
 	
 	player.resize = function() {
-		player.height = $(document).height() * 0.5;
+		player.height = getWindowHeight() * 0.5;
 		player.width = player.height * 0.75;
 	}
 	player.resize();
@@ -161,6 +169,6 @@ window.onkeydown = function(e) {
 	keyPressed[e.keyCode] = true;
 }
 window.onresize = function(e) {
-	renderer.resize($(document).width(), $(document).height());
+	renderer.resize(getWindowWidth(), getWindowHeight());
 	player.resize();
 }
