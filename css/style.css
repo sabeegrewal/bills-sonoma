@@ -108,6 +108,8 @@ table td {
   list-style-type:none;
   -webkit-user-select:none;
   -moz-user-select:none;
+  position:relative;
+  z-index:1;
 }
 .social-media li a {
   border-bottom: none;
