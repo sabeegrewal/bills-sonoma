@@ -1,6 +1,7 @@
 # Where things are
 source:          .
 destination:     ./_site
+repository:      sabeegrewal/bills-sonoma
 collections_dir: .
 plugins_dir:     _plugins
 layouts_dir:     _layouts
