@@ -99,3 +99,21 @@ table td {
     padding: 0.5em 1em;
     border: 1px solid #CCC;
 }
+
+.social-media {
+  text-align: left;
+}  
+.social-media li {
+  display:inline-block;
+  list-style-type:none;
+  -webkit-user-select:none;
+  -moz-user-select:none;
+}
+.social-media li a {
+  border-bottom: none;
+}
+.social-media li img {
+  width:32px;
+  height:32px;
+  margin-right: 15px;
+}
