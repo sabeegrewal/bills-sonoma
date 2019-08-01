@@ -1,18 +1,12 @@
-/* Set up stage and game rendering */
+/* pixijs boilerplate */
 var Container = PIXI.Container,
-	autoDetectRenderer = PIXI.autoDetectRenderer,
-	loader = PIXI.loader,
-	resources = PIXI.loader.resources,
-	Sprite = PIXI.Sprite,
-	Text = PIXI.Text;
-
-function getWindowWidth() {
-	return $(window).width();
-}
-
-function getWindowHeight() {
-	return $(window).height();
-}
+		autoDetectRenderer = PIXI.autoDetectRenderer,
+		loader = PIXI.loader,
+		resources = PIXI.loader.resources,
+		Sprite = PIXI.Sprite,
+		Text = PIXI.Text;
+function getWindowWidth() { return $(window).width(); }
+function getWindowHeight() { return $(window).height(); }
 
 var lastWindowWidth = getWindowWidth();
 var lastWindowHeight = getWindowHeight();
@@ -26,7 +20,7 @@ var stage = new Container();
 
 /* Create game variables */
 var player;
-var keyPressed = []; // keep track of key presses
+var keysPressed = [];
 
 /* Game functions */
 function setup() {
@@ -37,111 +31,77 @@ function setup() {
 }
 
 function createPlayer() {
-	player = new Sprite(
-		loader.resources["img/pigeon.png"].texture
-	);
+	player = new Sprite(loader.resources["img/pigeon2.png"].texture);
 	player.speed = 5;
 	player.angularV = 0.1;
-	// center pigeon boi
 	player.anchor.x = 0.5;
 	player.anchor.y = 0.5;
 	let el = document.body.getElementsByTagName("h1")[0];
 	player.x = el.getBoundingClientRect().right + 50;
 	player.y = el.getBoundingClientRect().bottom;
 	player.rotation = player.rotation + 0.1;
-
 	player.interactive = true;
 
 	player
-		// events for drag start
 		.on('mousedown', onDragStart)
 		.on('touchstart', onDragStart)
-		// events for drag end
 		.on('mouseup', onDragEnd)
 		.on('mouseupoutside', onDragEnd)
 		.on('touchend', onDragEnd)
 		.on('touchendoutside', onDragEnd)
-		// events for drag move
 		.on('mousemove', onDragMove)
 		.on('touchmove', onDragMove);
 
-	player.moveRight = function() {
-		player.x += player.speed;
-	}
-
-	player.moveLeft = function() {
-		player.x -= player.speed;
-	}
-
-	player.moveUp = function() {
-		player.y -= player.speed;
-	}
-
-	player.moveDown = function() {
-		player.y += player.speed;
-	}
+	player.moveRight = function() { player.x += player.speed; }
+	player.moveLeft = function() { player.x -= player.speed; }
+	player.moveUp = function() { player.y -= player.speed; }
+	player.moveDown = function() { player.y += player.speed; }
 
 	player.rotateCW = function() {
 		player.rotation += player.angularV;
-		if (player.rotation > 6.28) {
-			player.rotation -= 6.28;
-		}
+		if (player.rotation > 6.28) { player.rotation -= 6.28; }
 	}
-
 	player.rotateCC = function() {
 		player.rotation -= player.angularV;
-		if (player.rotation < 0) {
-			player.rotation += 6.28;
-		}
+		if (player.rotation < 0) { player.rotation += 6.28; }
 	}
 
 	player.resize = function() {
 		let head = document.getElementsByTagName('header')[0]
 		player.height = head.getBoundingClientRect().height
-		player.width = player.height * 0.75;
+		player.width = player.height;
 	}
 	player.resize();
 	stage.addChild(player);
 }
 
 function updatePlayer() {
-	if (keyPressed["w".charCodeAt(0)] || keyPressed["W".charCodeAt(0)]) {
-		player.moveUp();
-	}
-	if (keyPressed["a".charCodeAt(0)] || keyPressed["A".charCodeAt(0)]) {
-		player.moveLeft();
-	}
-	if (keyPressed["s".charCodeAt(0)] || keyPressed["S".charCodeAt(0)]) {
-		player.moveDown();
-	}
-	if (keyPressed["d".charCodeAt(0)] || keyPressed["D".charCodeAt(0)]) {
-		player.moveRight();
-	}
-	if (keyPressed[39]) {		// right arrow press
-		player.rotateCW();
-	}
-	if (keyPressed[37]) {		// left arrow press
-		player.rotateCC();
-	}
+	if (keysPressed["w".charCodeAt(0)] ||
+		  keysPressed["W".charCodeAt(0)]) { player.moveUp(); }
+	if (keysPressed["a".charCodeAt(0)] ||
+			keysPressed["A".charCodeAt(0)]) { player.moveLeft(); }
+	if (keysPressed["s".charCodeAt(0)] ||
+	    keysPressed["S".charCodeAt(0)]) { player.moveDown(); }
+	if (keysPressed["d".charCodeAt(0)] ||
+	    	keysPressed["D".charCodeAt(0)]) { player.moveRight(); }
+	if (keysPressed[39]) { player.rotateCW(); } // right arrow press
+	if (keysPressed[37]) { player.rotateCC(); } // left arrow press
 }
 
 function onDragStart(event) {
 	this.data = event.data;
 	this.alpha = 0.5;
 	this.dragging = true;
-
 	// store the initial delta form the user touch and the center of mister pigeon
 	var touchPosition = this.data.getLocalPosition(this.parent);
 	this.grabDeltaX = this.position.x - touchPosition.x;
 	this.grabDeltaY = this.position.y - touchPosition.y;
 }
-
 function onDragEnd() {
 	this.alpha = 1;
 	this.dragging = false;
 	this.data = null;
 }
-
 function onDragMove() {
 	if (this.dragging) {
 		var newPosition = this.data.getLocalPosition(this.parent);
@@ -158,9 +118,8 @@ function gameLoop() {
 }
 
 /* Init */
-// load images and starts the game
 loader
-	.add(["img/pigeon.png"])
+	.add(["img/pigeon2.png"])
 	.on("progress", loadProgressHandler)
 	.load(setup);
 function loadProgressHandler(loader, resource) {
@@ -168,12 +127,12 @@ function loadProgressHandler(loader, resource) {
 	console.log("progress: " + loader.progress + "%");
 }
 
-// Populates keyPressed array
+// Populates keysPressed array
 window.onkeyup = function(e) {
-	keyPressed[e.keyCode] = false;
+	keysPressed[e.keyCode] = false;
 }
 window.onkeydown = function(e) {
-	keyPressed[e.keyCode] = true;
+	keysPressed[e.keyCode] = true;
 }
 window.onresize = function(e) {
 	// store scaled coordinates for mister pigeon
