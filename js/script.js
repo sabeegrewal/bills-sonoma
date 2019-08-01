@@ -42,11 +42,13 @@ function createPlayer() {
 	);
 	player.speed = 5;
 	player.angularV = 0.1;
-	// center pigeon boi 
+	// center pigeon boi
 	player.anchor.x = 0.5;
 	player.anchor.y = 0.5;
-	player.x = getWindowWidth() / 2;
-	player.y = getWindowHeight() / 2;
+	let el = document.body.getElementsByTagName("h1")[0];
+	player.x = el.getBoundingClientRect().right + 50;
+	player.y = el.getBoundingClientRect().bottom;
+	player.rotation = player.rotation + 0.1;
 
 	player.interactive = true;
 
@@ -63,38 +65,39 @@ function createPlayer() {
 		.on('mousemove', onDragMove)
 		.on('touchmove', onDragMove);
 
-	player.moveRight = function() { 
-		player.x += player.speed; 
+	player.moveRight = function() {
+		player.x += player.speed;
 	}
-	
+
 	player.moveLeft = function() {
 		player.x -= player.speed;
 	}
-	
+
 	player.moveUp = function() {
 		player.y -= player.speed;
 	}
-	
+
 	player.moveDown = function() {
 		player.y += player.speed;
 	}
-	
+
 	player.rotateCW = function() {
 		player.rotation += player.angularV;
 		if (player.rotation > 6.28) {
 			player.rotation -= 6.28;
 		}
 	}
-	
+
 	player.rotateCC = function() {
 		player.rotation -= player.angularV;
 		if (player.rotation < 0) {
 			player.rotation += 6.28;
 		}
 	}
-	
+
 	player.resize = function() {
-		player.height = getWindowHeight() * 0.5;
+		let head = document.getElementsByTagName('header')[0]
+		player.height = head.getBoundingClientRect().height
 		player.width = player.height * 0.75;
 	}
 	player.resize();
@@ -144,6 +147,7 @@ function onDragMove() {
 		var newPosition = this.data.getLocalPosition(this.parent);
 		this.position.x = newPosition.x + this.grabDeltaX;
 		this.position.y = newPosition.y + this.grabDeltaY;
+		player.rotateCC();
 	}
 }
 
