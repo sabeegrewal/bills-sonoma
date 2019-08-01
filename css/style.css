@@ -19,6 +19,7 @@ h2, h3, h4, h5, p {
   padding: 0;
 }
 h1 {
+  display: table;
   margin-bottom: 12px;
   font-size: 48px;
   padding: 0;
@@ -112,7 +113,7 @@ table td {
 
 .social-media {
   text-align: left;
-}  
+}
 .social-media li {
   display:inline-block;
   list-style-type:none;
@@ -147,7 +148,7 @@ table td {
 .help-tip:before{
   content:'?';
   color:#fff;
-  
+
   -webkit-animation: fadeOut 0.3s ease-in-out;
   animation: fadeOut 0.3s ease-in-out;
 }
@@ -198,8 +199,8 @@ table td {
 
 /* CSS animation */
 @-webkit-keyframes fadeIn {
-  0% { 
-    opacity:0; 
+  0% {
+    opacity:0;
     transform: scale(0.6);
   }
   100% {
