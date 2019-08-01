@@ -38,7 +38,7 @@ function setup() {
 
 function createPlayer() {
 	player = new Sprite(
-		loader.resources["img/pigeon.png"].texture
+		loader.resources["img/pigeon2.png"].texture
 	);
 	player.speed = 5;
 	player.angularV = 0.1;
@@ -98,7 +98,7 @@ function createPlayer() {
 	player.resize = function() {
 		let head = document.getElementsByTagName('header')[0]
 		player.height = head.getBoundingClientRect().height
-		player.width = player.height * 0.75;
+		player.width = player.height;
 	}
 	player.resize();
 	stage.addChild(player);
@@ -160,7 +160,7 @@ function gameLoop() {
 /* Init */
 // load images and starts the game
 loader
-	.add(["img/pigeon.png"])
+	.add(["img/pigeon2.png"])
 	.on("progress", loadProgressHandler)
 	.load(setup);
 function loadProgressHandler(loader, resource) {
